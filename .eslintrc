@@ -19,10 +19,10 @@
     },
   },
   'rules': {
-    'no-console': 2,
     'no-undef': 2,
     'no-unreachable': 2,
     'no-unused-vars': 2,
+    'no-process-env': 0,
     'import/named': 2,
     'import/newline-after-import': 2,
     'import/no-default-export': 2,
