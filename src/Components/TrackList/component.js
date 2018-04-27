@@ -1,12 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const Component = () => (
+import { Track } from '../Track';
+
+export const Component = ({ tracks }) => (
   <div className="TrackList">
-    <header className="TrackList-header">
-      <h1 className="TrackList-title">Welcome to React</h1>
-    </header>
-    <p className="TrackList-intro">
-      To get started, edit <code>src/TrackList.js</code> and save to reload.
-    </p>
+    {tracks.map((track, index) => (
+      <div key={`${track.name}-${index}`}>
+        <Track {...track} />
+      </div>
+    ))}
   </div>
 );
+
+Component.displayName = 'TrackList';
+
+Component.defaultProps = {
+  tracks: [
+    {
+      name: '',
+      artist: '',
+      album: '',
+    },
+  ],
+};
+
+Component.propTypes = {
+  tracks: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      artist: PropTypes.string,
+      album: PropTypes.string,
+    })
+  ),
+};
