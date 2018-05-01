@@ -5,10 +5,10 @@ import { TrackList } from '../TrackList';
 
 import './styles.css';
 
-export const Component = ({ searchResults }) => (
+export const Component = ({ onAdd, searchResults }) => (
   <div className="SearchResults">
     <h2>Results</h2>
-    <TrackList tracks={searchResults} />
+    <TrackList onTrackClick={onAdd} tracks={searchResults} />
   </div>
 );
 
@@ -19,6 +19,7 @@ Component.defaultProps = {
 };
 
 Component.propTypes = {
+  onAdd: PropTypes.func.isRequired,
   searchResults: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

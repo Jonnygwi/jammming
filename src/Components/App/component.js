@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Spotify } from '../../utils';
+
 import { Playlist } from '../Playlist';
 import { SearchBar } from '../SearchBar';
 import { SearchResults } from '../SearchResults';
@@ -8,23 +10,59 @@ import './styles.css';
 
 export class Component extends React.Component {
   state = {
-    searchResults: [
-      {
-        name: 'Afraid of us',
-        artist: 'Jonwayne',
-        album: 'Rap album two',
-      },
-      {
-        name: 'LIVE from the Fuck You',
-        artist: 'Jonwayne',
-        album: 'Rap album two',
-      },
-      {
-        name: 'Human Condition',
-        artist: 'Jonwayne',
-        album: 'Rap album two',
-      },
-    ],
+    searchResults: [],
+    playlistName: 'New Playlist',
+    playlistTracks: [],
+  };
+
+  addTrackToPlaylist = trackToAdd => {
+    const { playlistTracks } = this.state;
+
+    const doesTrackIdExistInTrackList = playlistTracks.some(
+      track => track.id === trackToAdd.id
+    );
+
+    if (doesTrackIdExistInTrackList) {
+      console.log('Track already exists in playlist');
+    } else {
+      this.setState({
+        playlistTracks: [...playlistTracks, trackToAdd],
+      });
+    }
+  };
+
+  removeTrackFromPlaylist = trackToRemove => {
+    const { playlistTracks } = this.state;
+
+    const newPlaylist = playlistTracks.filter(
+      track => track.id !== trackToRemove.id
+    );
+
+    this.setState({
+      playlistTracks: newPlaylist,
+    });
+  };
+
+  updatePlaylistName = newPlaylistName => {
+    this.setState({
+      playlistName: newPlaylistName,
+    });
+  };
+
+  savePlaylist = () => {
+    let tracksURI = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, tracksURI).then(() => {
+      this.setState({
+        playlistTracks: [],
+        playlistName: 'New Playlist',
+      });
+    });
+  };
+
+  search = searchTerm => {
+    Spotify.search(searchTerm).then(results => {
+      this.setState({ searchResults: results });
+    });
   };
 
   render = () => (
@@ -33,10 +71,19 @@ export class Component extends React.Component {
         Ja<span className="highlight">mmm</span>ing
       </h1>
       <div className="App">
-        <SearchBar />
+        <SearchBar onSearch={this.search} />
         <div className="App-playlist">
-          <SearchResults searchResults={this.state.searchResults} />
-          <Playlist />
+          <SearchResults
+            onAdd={this.addTrackToPlaylist}
+            searchResults={this.state.searchResults}
+          />
+          <Playlist
+            name={this.state.playlistName}
+            onNameChange={this.updatePlaylistName}
+            onRemoval={this.removeTrackFromPlaylist}
+            tracks={this.state.playlistTracks}
+            onSave={this.savePlaylist}
+          />
         </div>
       </div>
     </div>

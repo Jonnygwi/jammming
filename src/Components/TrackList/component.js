@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Track } from '../Track';
 
-export const Component = ({ tracks }) => (
+import './styles.css';
+
+export const Component = ({ tracks, ...otherProps }) => (
   <div className="TrackList">
     {tracks.map((track, index) => (
-      <div key={`${track.name}-${index}`}>
-        <Track {...track} />
-      </div>
+      <Track key={`${track.name}-${index}`} track={track} {...otherProps} />
     ))}
   </div>
 );
@@ -16,13 +16,7 @@ export const Component = ({ tracks }) => (
 Component.displayName = 'TrackList';
 
 Component.defaultProps = {
-  tracks: [
-    {
-      name: '',
-      artist: '',
-      album: '',
-    },
-  ],
+  tracks: [{}],
 };
 
 Component.propTypes = {
