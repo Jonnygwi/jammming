@@ -14,7 +14,6 @@ export const Component = ({ onSearch }) => {
         onChange={event => handleSearchTermChange(event)}
         placeholder="Enter A Song, Album, or Artist"
       />
-      <a>SEARCH</a>
     </div>
   );
 };

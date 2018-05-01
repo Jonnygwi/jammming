@@ -6,6 +6,10 @@ export const Spotify = {
   accessTokenExpiration: null,
   userId: null,
   getAccessToken() {
+    if (this.accessToken != null) {
+      return this.accessToken;
+    }
+
     const userAccessTokenIsPresent = window.location.href.match(
       /access_token=([^&]*)/
     );
@@ -13,14 +17,7 @@ export const Spotify = {
       /expires_in=([^&]*)/
     );
 
-    if (this.accessToken == null && userAccessTokenIsPresent == null) {
-      window.location = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&scope=playlist-modify-public&redirect_uri=${REDIRECT_URI}`;
-    } else if (this.accessToken == null) {
-      this.accessToken = userAccessTokenIsPresent[1];
-    } else if (
-      userAccessTokenIsPresent != null &&
-      userAccessTokenExpirationIsPresent != null
-    ) {
+    if (userAccessTokenIsPresent && userAccessTokenExpirationIsPresent) {
       this.accessToken = userAccessTokenIsPresent[1];
       this.accessTokenExpiration = userAccessTokenExpirationIsPresent[1];
       window.setTimeout(
@@ -28,6 +25,9 @@ export const Spotify = {
         this.accessTokenExpiration * 1000
       );
       window.history.pushState('Access Token', null, '/');
+      return this.accessToken;
+    } else {
+      window.location = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&scope=playlist-modify-public&redirect_uri=${REDIRECT_URI}`;
     }
 
     return this.accessToken;

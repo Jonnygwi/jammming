@@ -60,9 +60,13 @@ export class Component extends React.Component {
   };
 
   search = searchTerm => {
-    Spotify.search(searchTerm).then(results => {
-      this.setState({ searchResults: results });
-    });
+    if (searchTerm != null && searchTerm !== '') {
+      Spotify.search(searchTerm).then(results => {
+        this.setState({ searchResults: results });
+      });
+    } else {
+      this.setState({ searchResults: [] });
+    }
   };
 
   render = () => (
