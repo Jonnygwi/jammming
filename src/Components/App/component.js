@@ -16,6 +16,24 @@ export class Component extends React.Component {
     playlistTracks: [],
   };
 
+  componentDidMount() {
+    const storedSearch = localStorage.getItem('searchTerm');
+    if (
+      storedSearch != null &&
+      storedSearch !== '' &&
+      storedSearch != this.state.searchTerm
+    ) {
+      Spotify.search(storedSearch)
+        .then(results => {
+          this.setState({
+            searchResults: results,
+            searchTerm: storedSearch,
+          });
+        })
+        .then(localStorage.removeItem('searchTerm'));
+    }
+  }
+
   addTrackToPlaylist = trackToAdd => {
     const { playlistTracks } = this.state;
 

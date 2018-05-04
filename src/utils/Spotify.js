@@ -33,6 +33,7 @@ export const Spotify = {
     return this.accessToken;
   },
   search(searchTerm) {
+    localStorage.setItem('searchTerm', searchTerm);
     return fetch(
       `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
       {
