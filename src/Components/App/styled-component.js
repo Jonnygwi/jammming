@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
+import backgroundImage from '../../assets/background_photo_desktop.jpg';
+
 export const App = {
   Wrapper: styled.div`
     height: 100%;
     padding: 0 17% 10% 17%;
-    background-image: url('./background_photo_desktop.jpg');
+    background-image: url(${backgroundImage});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -81,12 +81,12 @@ export class Component extends React.Component {
       <h1>
         Ja<span className="highlight">mmm</span>ing
       </h1>
-      <App.Wrapper className="App">
+      <App.Wrapper>
         <SearchBar
           onUpdateSearchTerm={this.updateSearchTerm}
           onSearch={this.search}
         />
-        <App.Playlist className="App-playlist">
+        <App.Playlist>
           <SearchResults
             onAdd={this.addTrackToPlaylist}
             searchResults={this.state.searchResults}
