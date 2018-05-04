@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import { TrackList } from '../TrackList';
 
-import './styles.css';
+import { SearchResults } from './styled-component';
 
 export const Component = ({ onAdd, searchResults }) => (
-  <div className="SearchResults">
+  <SearchResults.Wrapper>
     <h2>Results</h2>
     <TrackList onTrackClick={onAdd} tracks={searchResults} />
-  </div>
+  </SearchResults.Wrapper>
 );
 
 Component.displayName = 'SearchResults';

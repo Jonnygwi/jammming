@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Playlist } from './styled-component';
 import { TrackList } from '../TrackList';
 
-import './styles.css';
-
 export const Component = ({ tracks, onRemoval, onNameChange, onSave }) => (
-  <div className="Playlist">
+  <Playlist.Wrapper>
     <input
       onChange={event => onNameChange(event.target.value)}
       defaultValue="New Playlist"
     />
     <TrackList isRemoval onTrackClick={onRemoval} tracks={tracks} />
-    <a onClick={onSave} className="Playlist-save">
-      SAVE TO SPOTIFY
-    </a>
-  </div>
+    <Playlist.SaveButton onClick={onSave}>SAVE TO SPOTIFY</Playlist.SaveButton>
+  </Playlist.Wrapper>
 );
 
 Component.displayName = 'Playlist';

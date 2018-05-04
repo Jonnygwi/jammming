@@ -1,6 +1,7 @@
 import React from 'react';
 import { Spotify } from '../../utils';
 
+import { App } from './styled-component';
 import { Playlist } from '../Playlist';
 import { SearchBar } from '../SearchBar';
 import { SearchResults } from '../SearchResults';
@@ -80,12 +81,12 @@ export class Component extends React.Component {
       <h1>
         Ja<span className="highlight">mmm</span>ing
       </h1>
-      <div className="App">
+      <App.Wrapper className="App">
         <SearchBar
           onUpdateSearchTerm={this.updateSearchTerm}
           onSearch={this.search}
         />
-        <div className="App-playlist">
+        <App.Playlist className="App-playlist">
           <SearchResults
             onAdd={this.addTrackToPlaylist}
             searchResults={this.state.searchResults}
@@ -97,8 +98,8 @@ export class Component extends React.Component {
             tracks={this.state.playlistTracks}
             onSave={this.savePlaylist}
           />
-        </div>
-      </div>
+        </App.Playlist>
+      </App.Wrapper>
     </div>
   );
 }

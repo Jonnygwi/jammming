@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.css';
+import { SearchBar } from './styled-component';
 
 export const Component = ({ onSearch, onUpdateSearchTerm }) => {
   const handleSearchTermChange = event => {
@@ -16,14 +16,14 @@ export const Component = ({ onSearch, onUpdateSearchTerm }) => {
   };
 
   return (
-    <div className="SearchBar">
+    <SearchBar.Wrapper>
       <input
         onChange={event => handleSearchTermChange(event)}
         onKeyPress={handleKeyPress}
         placeholder="Enter A Song, Album, or Artist"
       />
       <a onClick={onSearch}>SEARCH</a>
-    </div>
+    </SearchBar.Wrapper>
   );
 };
 

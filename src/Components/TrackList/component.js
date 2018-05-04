@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 import { Track } from '../Track';
 
-import './styles.css';
+import { TrackList } from './styled-component';
 
 export const Component = ({ tracks, ...otherProps }) => (
-  <div className="TrackList">
+  <TrackList.Wrapper>
     {tracks.map((track, index) => (
       <Track key={`${track.name}-${index}`} track={track} {...otherProps} />
     ))}
     {tracks.length === 0 && 'No results'}
-  </div>
+  </TrackList.Wrapper>
 );
 
 Component.displayName = 'TrackList';
