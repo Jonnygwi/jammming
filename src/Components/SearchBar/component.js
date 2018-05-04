@@ -30,6 +30,8 @@ export const Component = ({ onSearch, onUpdateSearchTerm }) => {
 Component.displayName = 'SearchBar';
 
 Component.propTypes = {
+  /* Handler | Searches Spotify's API with search term */
   onSearch: PropTypes.func.isRequired,
+  /* Handler | Updates the search term in App component */
   onUpdateSearchTerm: PropTypes.func.isRequired,
 };

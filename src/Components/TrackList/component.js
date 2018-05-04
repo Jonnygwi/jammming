@@ -21,6 +21,7 @@ Component.defaultProps = {
 };
 
 Component.propTypes = {
+  /* Object returned from Spotify's API */
   tracks: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

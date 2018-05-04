@@ -19,7 +19,9 @@ Component.defaultProps = {
 };
 
 Component.propTypes = {
+  /* Handler | Adds song from search results to playlist */
   onAdd: PropTypes.func.isRequired,
+  /* Object returned from Spotify's API */
   searchResults: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
