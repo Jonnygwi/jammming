@@ -10,6 +10,7 @@ import './styles.css';
 export class Component extends React.Component {
   state = {
     searchResults: [],
+    searchTerm: '',
     playlistName: 'New Playlist',
     playlistTracks: [],
   };
@@ -58,9 +59,15 @@ export class Component extends React.Component {
     });
   };
 
-  search = searchTerm => {
-    if (searchTerm != null && searchTerm !== '') {
-      Spotify.search(searchTerm).then(results => {
+  updateSearchTerm = newSearchTerm => {
+    this.setState({
+      searchTerm: newSearchTerm,
+    });
+  };
+
+  search = () => {
+    if (this.state.searchTerm !== '') {
+      Spotify.search(this.state.searchTerm).then(results => {
         this.setState({ searchResults: results });
       });
     } else {
@@ -74,7 +81,10 @@ export class Component extends React.Component {
         Ja<span className="highlight">mmm</span>ing
       </h1>
       <div className="App">
-        <SearchBar onSearch={this.search} />
+        <SearchBar
+          onUpdateSearchTerm={this.updateSearchTerm}
+          onSearch={this.search}
+        />
         <div className="App-playlist">
           <SearchResults
             onAdd={this.addTrackToPlaylist}
