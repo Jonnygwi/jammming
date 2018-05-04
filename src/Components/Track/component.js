@@ -23,7 +23,7 @@ Component.defaultProps = {
 
 Component.propTypes = {
   /** Shows the correct action to the user */
-  isRemoval: PropTypes.boolean,
+  isRemoval: PropTypes.bool,
   /** Handler adding tracks to a playlist */
   onTrackClick: PropTypes.func.isRequired,
   /** Track object containing information about the track */
