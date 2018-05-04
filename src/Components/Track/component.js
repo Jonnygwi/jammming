@@ -1,54 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-import { Theme } from '../utils';
-
-const TrackWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid ${Theme.mainColor};
-`;
-
-const TrackInformation = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 72px;
-
-  h3 {
-    margin-bottom: 0.22rem;
-  }
-
-  p {
-    font-size: 0.83rem;
-    font-weight: 300;
-    color: ${Theme.mainColor};
-  }
-`;
-
-const TrackCallToAction = styled.a`
-  cursor: pointer;
-  padding: 0.5rem;
-  font-size: 1.05rem;
-  transition: color 0.25s;
-
-  &:hover {
-    color: rgba(265, 265, 265, 0.5);
-  }
-`;
+import { Track } from './styled-component';
 
 export const Component = ({ track, isRemoval, onTrackClick }) => (
-  <TrackWrapper>
-    <TrackInformation>
+  <Track.Wrapper>
+    <Track.Information>
       <h3>{track.name}</h3>
       <p>{`${track.artist} | ${track.album}`}</p>
-    </TrackInformation>
-    <TrackCallToAction onClick={() => onTrackClick(track)}>
+    </Track.Information>
+    <Track.CallToAction onClick={() => onTrackClick(track)}>
       {isRemoval ? '-' : '+'}
-    </TrackCallToAction>
-  </TrackWrapper>
+    </Track.CallToAction>
+  </Track.Wrapper>
 );
 
 Component.displayName = 'Track';
