@@ -24,8 +24,11 @@ Component.propTypes = {
   /* Object returned from Spotify's API */
   searchResults: PropTypes.arrayOf(
     PropTypes.shape({
+      /** Name of the track. */
       name: PropTypes.string,
+      /** Artist of the track. */
       artist: PropTypes.string,
+      /** Album of the track. */
       album: PropTypes.string,
     })
   ),

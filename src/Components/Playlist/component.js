@@ -31,8 +31,11 @@ Component.propTypes = {
   /* Tracks object returned from Spotify API */
   tracks: PropTypes.arrayOf(
     PropTypes.shape({
+      /** Name of the track. */
       name: PropTypes.string,
+      /** Artist of the track. */
       artist: PropTypes.string,
+      /** Album of the track. */
       album: PropTypes.string,
     })
   ),
