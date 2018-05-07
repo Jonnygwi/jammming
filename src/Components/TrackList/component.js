@@ -10,7 +10,6 @@ export const Component = ({ tracks, ...otherProps }) => (
     {tracks.map((track, index) => (
       <Track key={`${track.name}-${index}`} track={track} {...otherProps} />
     ))}
-    {tracks.length === 0 && 'No results'}
   </TrackList.Wrapper>
 );
 

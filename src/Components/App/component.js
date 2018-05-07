@@ -1,9 +1,8 @@
 import React from 'react';
-import { Spotify } from '../../utils';
 
 import { App } from './styled-component';
 import { Playlist } from '../Playlist';
-import { SearchBar } from '../SearchBar';
+import { Search } from '../Search';
 import { SearchResults } from '../SearchResults';
 
 import './styles.css';
@@ -11,28 +10,12 @@ import './styles.css';
 export class Component extends React.Component {
   state = {
     searchResults: [],
-    searchTerm: '',
-    playlistName: 'New Playlist',
     playlistTracks: [],
   };
 
-  componentDidMount() {
-    const storedSearch = localStorage.getItem('searchTerm');
-    if (
-      storedSearch != null &&
-      storedSearch !== '' &&
-      storedSearch != this.state.searchTerm
-    ) {
-      Spotify.search(storedSearch)
-        .then(results => {
-          this.setState({
-            searchResults: results,
-            searchTerm: storedSearch,
-          });
-        })
-        .then(localStorage.removeItem('searchTerm'));
-    }
-  }
+  updateSearchResults = results => {
+    this.setState({ searchResults: results });
+  };
 
   addTrackToPlaylist = trackToAdd => {
     const { playlistTracks } = this.state;
@@ -62,36 +45,11 @@ export class Component extends React.Component {
     });
   };
 
-  updatePlaylistName = newPlaylistName => {
+  resetPlaylist = () => {
+    console.log(this.state);
     this.setState({
-      playlistName: newPlaylistName,
+      playlistTracks: [],
     });
-  };
-
-  savePlaylist = () => {
-    let tracksURI = this.state.playlistTracks.map(track => track.uri);
-    Spotify.savePlaylist(this.state.playlistName, tracksURI).then(() => {
-      this.setState({
-        playlistTracks: [],
-        playlistName: 'New Playlist',
-      });
-    });
-  };
-
-  updateSearchTerm = newSearchTerm => {
-    this.setState({
-      searchTerm: newSearchTerm,
-    });
-  };
-
-  search = () => {
-    if (this.state.searchTerm !== '') {
-      Spotify.search(this.state.searchTerm).then(results => {
-        this.setState({ searchResults: results });
-      });
-    } else {
-      this.setState({ searchResults: [] });
-    }
   };
 
   render = () => (
@@ -100,21 +58,16 @@ export class Component extends React.Component {
         Ja<span className="highlight">mmm</span>ing
       </h1>
       <App.Wrapper>
-        <SearchBar
-          onUpdateSearchTerm={this.updateSearchTerm}
-          onSearch={this.search}
-        />
+        <Search updateSpotifySearchResults={this.updateSearchResults} />
         <App.Playlist>
           <SearchResults
             onAdd={this.addTrackToPlaylist}
             searchResults={this.state.searchResults}
           />
           <Playlist
-            name={this.state.playlistName}
-            onNameChange={this.updatePlaylistName}
+            resetPlaylistTracks={this.resetPlaylist}
             onRemoval={this.removeTrackFromPlaylist}
             tracks={this.state.playlistTracks}
-            onSave={this.savePlaylist}
           />
         </App.Playlist>
       </App.Wrapper>
