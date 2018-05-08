@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Spotify } from '../../utils';
+import { getStoredSearchTerm } from './utils/getStoredSearchTerm';
+import { removeStoredSearchTerm } from './utils/removeStoredSearchTerm';
 import { SearchBar } from './styled-component';
 
 export class Component extends React.Component {
@@ -10,20 +12,20 @@ export class Component extends React.Component {
   };
 
   componentDidMount() {
-    const storedSearch = localStorage.getItem('searchTerm');
+    const storedSearchTerm = getStoredSearchTerm();
     if (
-      storedSearch != null &&
-      storedSearch !== '' &&
-      storedSearch != this.state.searchTerm
+      storedSearchTerm != null &&
+      storedSearchTerm !== '' &&
+      storedSearchTerm != this.state.searchTerm
     ) {
-      Spotify.search(storedSearch)
+      Spotify.search(storedSearchTerm)
         .then(results => {
           this.setState({
-            searchTerm: storedSearch,
+            searchTerm: storedSearchTerm,
           });
           this.props.updateSpotifySearchResults(results);
         })
-        .then(localStorage.removeItem('searchTerm'));
+        .then(removeStoredSearchTerm());
     }
   }
 
